@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-// import axios from 'axios';
-
-import Drawer from '@mui/material';
+// Components
+import Item from './Item/Item'
+import { Drawer, Grid, Badge } from '@mui/material';
 import { LinearProgress } from '@mui/material';
-import Grid from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import Badge from '@mui/material';
 // Style
 import { Wrapper } from './App.style';
 // Types
@@ -29,10 +27,26 @@ const App = () => {
 
   const { data, isLoading, error } = useQuery<CartItemType[]>('products', getProducts)
   console.log(data)
-  return (
-    <div className="App">
-      Start
-    </div>
+
+  const getTotalItems = () => null;
+
+  const handleAddToCart = (clickedItem: CartItemType) => null;
+
+  const handleRemoveFromCart = () => null;
+
+  if (isLoading) return <LinearProgress/>;
+  if (error) return <div> Something went wrong </div>;
+ 
+ return (
+    <Wrapper>
+      <Grid container spacing={3}>
+        {data?.map(item => (
+          <Grid item key={item.id} xs={12} sm={4}>
+            <Item item={item} handleAddToCart={handleAddToCart} />
+          </Grid>
+        ))}
+      </Grid>
+    </Wrapper>
   );
 }
 
